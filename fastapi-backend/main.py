@@ -2,6 +2,10 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
+from basedatos import Base, engine
+
+
+Base.metadata.create_all(bind=engine)
 
 # Crear app
 app = FastAPI(
