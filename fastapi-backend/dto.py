@@ -1,0 +1,64 @@
+from pydantic import BaseModel
+
+
+class CategoriaCrear(BaseModel):
+    nombre: str
+
+# creacion 
+
+class ProductoCrearDTO(BaseModel):
+    nombre: str
+    precio: int
+    usuario_id: int
+    categoria_ids: list[int] = []
+
+class ProductoActualizarDTO(BaseModel):
+    nombre: str | None = None
+    precio: int | None = None
+    categoria_ids: list[int] | None = None
+
+
+class UsuarioCreacionDTO(BaseModel):
+    nombre: str
+    email: str
+    apellido: str
+    password: str
+
+    class Config:
+        orm_mode = True
+
+class UsuarioModificarDTO(BaseModel):
+    nombre: str | None = None
+    email: str | None = None
+    apellido: str | None = None
+    password: str | None = None
+
+class UsuarioLoginDTO(BaseModel):
+    email: str
+    password: str
+
+
+# respuesta - listados, cuando obtener algo
+
+
+
+class UsuarioListadoDTO(BaseModel):
+    id: int
+    nombre: str
+    email: str
+    apellido: str
+
+    class Config:
+        orm_mode = True
+
+class ProductosListadoDTO(BaseModel):
+    id: int
+    nombre: str
+    precio: int
+    usuario_id: int
+    categorias: list[CategoriaCrear] = []
+
+    class Config:
+        orm_mode = True
+
+

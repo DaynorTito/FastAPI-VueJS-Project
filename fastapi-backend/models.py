@@ -19,6 +19,7 @@ class Usuario(Base):
     nombre = Column(String, nullable=True)
     email = Column(String, unique=True, nullable=False)
     apellido =Column(String, nullable=True)
+    password = Column(String, nullable=False)
 
     productos = relationship('Producto', back_populates='usuario')
 

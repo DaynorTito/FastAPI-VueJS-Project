@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
-
+from routes import usuarios, producto
 from basedatos import Base, engine
 
 
@@ -21,6 +21,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(usuarios.router)
+app.include_router(producto.router)
 
 @app.get("/")
 def root():
