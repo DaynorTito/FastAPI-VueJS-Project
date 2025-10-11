@@ -25,7 +25,7 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="1" @click="$router.push('/')">Home</el-menu-item>
     <el-menu-item index="2" @click="$router.push('/login')">Login</el-menu-item>
     <el-menu-item index="3" @click="$router.push('/registro')">Registro</el-menu-item>
-    <el-menu-item index="4" @click="$router.push('/')">Productos</el-menu-item>
+    <el-menu-item index="4" @click="$router.push('/productos')">Productos</el-menu-item>
 
   </el-menu>
 </template>

@@ -12,7 +12,9 @@ const form = ref({
 
 const login = async () => {
   try {
-    await axios.post('http://localhost:8000/usuarios/login', form.value)
+    const response = await axios.post('http://localhost:8000/usuarios/login', form.value)
+    const usuarioId = response.data.usuario_id
+    localStorage.setItem('usuario_id', usuarioId)
     alert('Login exitoso!')
     router.push('/')
   } catch (error) {

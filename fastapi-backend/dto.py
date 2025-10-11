@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 
 
-class CategoriaCrear(BaseModel):
-    nombre: str
 
 # creacion 
 
@@ -51,12 +49,19 @@ class UsuarioListadoDTO(BaseModel):
     class Config:
         orm_mode = True
 
+
+class CategoriaListar(BaseModel):
+    nombre: str
+
+    class Config:
+        orm_mode = True
+
 class ProductosListadoDTO(BaseModel):
     id: int
     nombre: str
     precio: int
     usuario_id: int
-    categorias: list[CategoriaCrear] = []
+    categorias: list[CategoriaListar] = []
 
     class Config:
         orm_mode = True

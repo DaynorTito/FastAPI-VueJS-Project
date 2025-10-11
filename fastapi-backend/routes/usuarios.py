@@ -1,10 +1,10 @@
 
-from dto import UsuarioCreacionDTO, UsuarioLoginDTO, UsuarioModificarDTO
+from dto import UsuarioCreacionDTO, UsuarioListadoDTO, UsuarioLoginDTO, UsuarioModificarDTO
 from basedatos import get_db
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
 from models import Usuario
-
+from typing import List
 
 router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
@@ -13,7 +13,7 @@ def crear_usuario(usuario: UsuarioCreacionDTO, db: Session = Depends(get_db)):
     verificar_usuario = db.query(Usuario).filter(Usuario.email == usuario.email).first()
 
     if verificar_usuario:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        raise HTTPException(status_code=400, detail="El email ya está en uso")
 
     nuevo_usuario = Usuario(nombre = usuario.nombre, email=usuario.email, apellido=usuario.apellido, password=usuario.password)
     db.add(nuevo_usuario)
@@ -33,10 +33,14 @@ def login_usuario(usuario: UsuarioLoginDTO, db: Session = Depends(get_db)):
     if verificar_usuario.password != usuario.password:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
-    return {"mensaje": "Inicio de sesión exitoso", "usuario_id": verificar_usuario.id}
+    return {"usuario_id": verificar_usuario.id}
 
 
 
+@router.get("/listar", response_model=List[UsuarioListadoDTO])
+def listar_usuarios(db: Session = Depends(get_db)):
+    usuarios = db.query(Usuario).all()
+    return usuarios
 
 @router.put("/modificar/{usuario_id}")
 def modificar_usuario(usuario_id: int, usuario: UsuarioModificarDTO, db: Session = Depends(get_db)):
@@ -47,6 +51,7 @@ def modificar_usuario(usuario_id: int, usuario: UsuarioModificarDTO, db: Session
 
     if usuario.nombre is not None:
         verificar_usuario.nombre = usuario.nombre
+
     if usuario.email is not None:
         verificar_usuario.email = usuario.email
 
