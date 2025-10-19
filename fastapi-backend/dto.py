@@ -1,18 +1,25 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
+from typing import List
 
 
 # creacion 
+class EmailRequest(BaseModel):
+    destinatarios: List[EmailStr]
+    asunto: str
+    contenido: str
 
 class ProductoCrearDTO(BaseModel):
     nombre: str
     precio: int
+    stock: int | None = None
     usuario_id: int
     categoria_ids: list[int] = []
 
 class ProductoActualizarDTO(BaseModel):
     nombre: str | None = None
     precio: int | None = None
+    stock: int | None = None
     categoria_ids: list[int] | None = None
 
 
@@ -61,6 +68,7 @@ class ProductosListadoDTO(BaseModel):
     nombre: str
     precio: int
     usuario_id: int
+    stock: int | None = None
     categorias: list[CategoriaListar] = []
 
     class Config:

@@ -28,6 +28,7 @@ class Producto(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
     precio = Column(Integer, nullable=False)
+    stock = Column(Integer, nullable=True)
 
     usuario_id = Column(Integer, ForeignKey('usuarios.id'))
     usuario = relationship('Usuario', back_populates='productos')

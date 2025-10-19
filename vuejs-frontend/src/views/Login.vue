@@ -24,21 +24,46 @@ const login = async () => {
 }
 
 </script>
-
 <template>
-  <div style="max-width: 400px; margin: 0 auto; padding: 20px;">
-    <h2>Login</h2>
-    <el-form :model="form" @submit.prevent="login">
-      <el-form-item label="Email">
-        <el-input placeholder="Enter your email" v-model="form.email"/>
-      </el-form-item>
-      <el-form-item label="Password">
-        <el-input type="password" placeholder="Enter your password" v-model="form.password"/>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="login">Login</el-button>
-      </el-form-item>
-    </el-form>
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">
+        Iniciar Sesión
+      </h2>
 
+      <el-form :model="form" @submit.prevent="login" label-position="top">
+        <el-form-item label="Email">
+          <el-input
+            placeholder="Ingresa tu email"
+            v-model="form.email"
+            clearable
+          />
+        </el-form-item>
+
+        <el-form-item label="Contraseña">
+          <el-input
+            type="password"
+            placeholder="Ingresa tu contraseña"
+            v-model="form.password"
+            show-password
+          />
+        </el-form-item>
+
+        <el-form-item>
+          <el-button
+            type="primary"
+            class="w-full !bg-indigo-600 hover:!bg-indigo-700 transition"
+            @click="login"
+          >
+            Ingresar
+          </el-button>
+        </el-form-item>
+      </el-form>
+
+      <p class="text-sm text-gray-600 text-center mt-4">
+        ¿No tienes cuenta?
+        <a href="#" class="text-indigo-600 hover:underline">Regístrate</a>
+      </p>
+    </div>
   </div>
 </template>
