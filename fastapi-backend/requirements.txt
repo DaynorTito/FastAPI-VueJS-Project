@@ -1,3 +1,9 @@
 fastapi
 uvicorn
 sqlalchemy
+pytest
+coverage
+pytest-asyncio
+httpx
+email-validator
+aiosmtplib
